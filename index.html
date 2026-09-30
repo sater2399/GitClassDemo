@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧞 神燈精靈遊戲版</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="background-effects">
+    <div class="magic-glow glow-1"></div>
+    <div class="magic-glow glow-2"></div>
+  </div>
+
+  <div class="game-container" id="game-container">
+    <!-- Header -->
+    <header class="game-header">
+      <div class="logo-badge">
+        <span class="lamp-icon">🪔</span>
+        <h1 class="game-title">🧞 神燈精靈遊戲版</h1>
+      </div>
+      <p class="game-subtitle">在心中想好一款遊戲，讓神奇的精靈透過提問猜出它的真面目！</p>
+    </header>
+
+    <!-- Main Game Area -->
+    <main class="main-content" id="main-content">
+      <!-- 1. 首頁畫面 (Landing Page) -->
+      <section id="landing-view" class="view-panel active">
+        <div class="card landing-card">
+          <div class="genie-avatar-container">
+            <div class="genie-aura"></div>
+            <div class="genie-emoji">🧙‍♂️✨</div>
+          </div>
+          <h2 class="landing-heading">準備好挑戰精靈的心靈感應了嗎？</h2>
+          <p class="landing-desc">
+            請在腦海中默默選定一款心儀的遊戲。<br>
+            接下來精靈會詢問你幾個問題，誠實回答，看精靈能否洞悉你的想法！
+          </p>
+
+          <div class="stats-preview-panel">
+            <div class="stat-item">
+              <span class="stat-label">累積挑戰</span>
+              <span class="stat-val" id="landing-total-games">0 次</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-label">精靈命中</span>
+              <span class="stat-val" id="landing-correct-guesses">0 次</span>
+            </div>
+          </div>
+
+          <div class="action-wrapper">
+            <button id="start-btn" class="btn btn-primary start-button" type="button" title="快捷鍵: Enter 或 空白鍵">
+              <span class="btn-sparkle">✨</span>
+              <span>開始遊戲 <kbd class="kbd-hint">Enter</kbd></span>
+              <span class="btn-sparkle">✨</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. 問題畫面 (Question Card) -->
+      <section id="question-view" class="view-panel hidden">
+        <div class="progress-section">
+          <div class="progress-header">
+            <span class="progress-badge">進度探索</span>
+            <span class="progress-text" id="question-progress-text">第 1 / 20 題</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="question-progress-bar" style="width: 5%;"></div>
+          </div>
+        </div>
+
+        <div class="card question-card">
+          <div class="card-glow-line"></div>
+          <div class="question-meta-tag">
+            <span class="meta-icon">🔮</span>
+            <span>精靈的探索提問</span>
+          </div>
+          <h2 id="question-text" class="question-title">這是一款主打多人線上連線或多人對抗的遊戲嗎？</h2>
+        </div>
+
+        <div class="options-container" id="options-container">
+          <button class="btn btn-option" data-answer="yes" type="button" title="快捷鍵: 1 或 Y">
+            <span class="option-icon">⭕</span>
+            <span class="option-label">是 <kbd class="kbd-hint">1</kbd></span>
+          </button>
+          <button class="btn btn-option" data-answer="no" type="button" title="快捷鍵: 2 或 N">
+            <span class="option-icon">❌</span>
+            <span class="option-label">否 <kbd class="kbd-hint">2</kbd></span>
+          </button>
+          <button class="btn btn-option" data-answer="uncertain" type="button" title="快捷鍵: 3 或 U">
+            <span class="option-icon">❔</span>
+            <span class="option-label">不確定 <kbd class="kbd-hint">3</kbd></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 3. 思考轉場畫面 (Thinking State) -->
+      <section id="thinking-view" class="view-panel hidden">
+        <div class="card thinking-card">
+          <div class="thinking-spinner-wrapper">
+            <div class="crystal-ball">
+              <div class="inner-smoke"></div>
+              <span class="ball-glow">🔮</span>
+            </div>
+          </div>
+          <h2 class="thinking-title">讓我想一下……</h2>
+          <p class="thinking-subtitle">精靈正在浩瀚的遊戲記憶庫中探測靈魂共鳴……</p>
+          <div class="thinking-dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. 結果畫面 (Result Card) -->
+      <section id="result-view" class="view-panel hidden">
+        <div class="card result-card">
+          <div class="card-glow-line gold"></div>
+          <div class="result-header">
+            <div class="result-crown">👑</div>
+            <div class="result-badge">神燈精靈的猜測</div>
+          </div>
+          <div class="result-content">
+            <h2 id="result-game-title" class="result-title">英雄聯盟 (League of Legends)</h2>
+            <div class="result-meta-row">
+              <span class="badge-tag" id="result-game-type">類型：多人線上戰鬥競技 (MOBA)</span>
+              <span class="badge-tag" id="result-game-platform">平台：PC</span>
+            </div>
+            <p id="result-game-desc" class="result-desc">「召喚峽谷的戰火在燃燒！你想的一定就是這款作品吧！」</p>
+          </div>
+
+          <!-- 階段 2：猜測結果互動回饋按鈕區 -->
+          <div class="result-actions" id="result-actions-container">
+            <p class="result-prompt-text">精靈猜得準確嗎？請告訴精靈結果：</p>
+            <div class="guess-feedback-buttons">
+              <button id="btn-guess-correct" class="btn btn-feedback btn-success" type="button" title="快捷鍵: 1 或 Y">
+                <span>🎉 猜對了！ <kbd class="kbd-hint">1</kbd></span>
+              </button>
+              <button id="btn-guess-wrong" class="btn btn-feedback btn-danger" type="button" title="快捷鍵: 2 或 N">
+                <span>😈 猜錯了 <kbd class="kbd-hint">2</kbd></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 階段 2：結算說明與再玩導覽區 (點擊猜對/猜錯後展示) -->
+          <div class="feedback-section hidden" id="feedback-section">
+            <div class="feedback-card" id="feedback-message-card">
+              <div class="feedback-icon" id="feedback-icon">🎉</div>
+              <h3 class="feedback-title" id="feedback-title">精靈無所不知！</h3>
+              <p class="feedback-desc" id="feedback-desc">沒有任何遊戲的秘密能瞞過神燈精靈的心靈感應！</p>
+            </div>
+            <div class="navigation-buttons">
+              <button id="btn-play-again" class="btn btn-secondary" type="button" title="快捷鍵: Enter 或 R">
+                <span>🔄 再玩一次 <kbd class="kbd-hint">R</kbd></span>
+              </button>
+              <button id="btn-back-home" class="btn btn-outline" type="button" title="快捷鍵: Esc 或 H">
+                <span>🏠 回首頁 <kbd class="kbd-hint">Esc</kbd></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="game-footer">
+      <div class="footer-info">
+        <p class="copyright">© 2026 神燈精靈遊戲版 ｜ 100% 純本機離線遊玩</p>
+        <p class="footer-stats" id="footer-stats-text">統計：已遊玩 0 次 ｜ 精靈猜中 0 次</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
